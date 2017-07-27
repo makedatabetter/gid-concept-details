@@ -1,0 +1,100 @@
+<!--
+  Wrapper component for concepts
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../gid-api/gid-api.html">
+<!--
+`gid-concept-details`
+
+The `gid-concept-details` element is a data component acting as a wrapper  on gid-api used for handling rest calls for
+fetching the details of a particular concept for a particular user.
+
+<gid-concept-details
+ user-id='1'
+ concept-id='100462'
+ conceptdetails='{{conceptdetails}}'>
+ </gid-concept-details>
+
+The fields 'userId' and 'conceptId' are  mandatory.
+
+If 'apiUrl' is not provided, then the component would fetch sample data from mock json.
+
+@demo demo/index.html
+-->
+<dom-module id="gid-concept-details">
+  <template>
+         <!-- concepts -->	
+		<gid-api auto=false
+			http-method="get" api-url={{conceptDetailsUrl}} response='{{conceptDetailsResponse}}'
+			api-timeout={{conceptDetailsTimeout}} api-params={{conceptDetailsParams}}> </gid-api>			
+	    <!-- concepts -->
+
+  </template>
+  <script>
+    (function() {
+     'use strict';
+      Polymer({
+        is:'gid-concept-details',
+        properties:{
+	        	apiUrl:{
+	            	type: String,
+	    	        notify: true,
+	    	        value: ''
+	    	 	},
+        	   conceptDetailsUrl:{
+                	type: String,
+        	        notify: true
+        	 	},
+        	 	conceptDetailsTimeout : {
+            		type: Number,
+        	        notify: true,
+        	        value : 0
+        	    },
+        	    conceptDetailsResponse : {
+	     	  		type : Object,
+	     	  		notify : true,
+	     	  		observer : 'conceptDetailsResponseChanged'
+        	  	},
+        	  	conceptDetailsParams : {
+	     	   		type: String,
+	     	   		notify : true
+     	   	    },
+     	   	    conceptdetails: {
+     	          type: Array,
+     	          value: [],
+     	          notify: true
+     	        },
+     	       userId: {
+     	        	type: String,
+     	        	value : '',
+     	        	notify :  true
+     	        },
+     	       conceptId:{
+     	    	  type: String,
+	   	          value : '',
+	   	          notify :  true,
+	   	          observer : 'conceptIdModified'
+     	       }
+        },
+        conceptIdModified:  function(){
+        	if(!this.apiUrl){
+        		this.conceptDetailsUrl =   this.importPath + 'assets/' + 'conceptDetails.json';
+        		
+        	}
+        	else{
+        		//TODO
+        	}
+        },
+        conceptDetailsResponseChanged : function(newvalue, oldvalue){
+            this.conceptdetails = [];
+            if(newvalue != null){
+  	             this.async(function() {
+  	         		this.conceptdetails =  this.conceptdetails.concat(newvalue.concept);
+  	   		 	          }, 500);
+            }
+           	
+           }
+      });
+    })();
+  </script>
+</dom-module>
