@@ -1,6 +1,6 @@
 {
-  "name": "gid-list-concepts",
-  "main": "gid-list-concepts.html",
+  "name": "gid-concept-details",
+  "main": "gid-concept-details.html",
   "authors": [
     "Shreya Bharadwaj"
   ],
