@@ -82,14 +82,14 @@ If 'apiUrl' is not provided, then the component would fetch sample data from moc
         		
         	}
         	else{
-        		//TODO
+        		this.conceptDetailsUrl =   this.apiUrl + '/concepts/' + this.conceptId + '/coverage';
         	}
         },
         conceptDetailsResponseChanged : function(newvalue, oldvalue){
             this.conceptdetails = [];
             if(newvalue != null){
   	             this.async(function() {
-  	         		this.conceptdetails =  this.conceptdetails.concat(newvalue.concept);
+  	         		this.conceptdetails =  this.conceptdetails.concat(newvalue);
   	   		 	          }, 500);
             }
            	

@@ -29,66 +29,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <div class="horizontal-section-container">
     <template is="dom-bind" id="app">
-        <gid-concept-details user-id='1' concept-id='100462' conceptdetails='{{conceptdetails}}'></gid-concept-details>
+        <gid-concept-details user-id='1' api-url='https://ql50yzu0fj.execute-api.us-east-1.amazonaws.com/dev' concept-id='100392' conceptdetails='{{conceptdetails}}'></gid-concept-details>
         <template is="dom-repeat" items="[[conceptdetails]]">
             <div class="horizontal-section">
                 <table style="width:100%">
 				  <tr>
 				    <th>Concept</th>
-				    <th>Owner</th>
 				    <th>Predicted Columns</th>
 				    <th>Confirmed Columns</th>
 				    <th>ETA</th>
 				    <th>Coverage</th>
-				    <th>Impact Area</th> 
 				    <th>Classification Accuracy Percentage</th>
-				    <th>Applications</th>
-				    <th>Synonyms</th>
+				    <th>Samples</th>
 				    <th>Patterns</th>
-				    <th>Related Concepts</th>
-				    <th>Example Values</th>
+				    <th>Synonyms</th>
 				    <th>Example Columns</th>
+				    <th>Related Concepts</th>
 				  </tr>
 				  <tr>
-				    <td>{{item.label}}</td>
-				    <td>{{item.owner.label}}</td>
-				    <td>{{item.predictedColumns}}</td>
-				    <td>{{item.confirmedColumns}}</td>
-				    <td>{{item.eta}}</td>
-				    <td>{{item.coverage}}</td>				    
-				    <td>
-				     <template is="dom-repeat" items="[[item.impactArea]]">
-				     	<p>{{item.label}}</p>
-				     </template>
-				    </td> 
-				    <td>{{item.classificationAccuracyPercentage}}</td>	    
-				    <td>
-				     <template is="dom-repeat" items="[[item.applications]]">
+				    <td valign="top">{{item.label}}</td>
+				    <td valign="top">{{item.predictedColumns}}</td>
+				    <td valign="top">{{item.confirmedColumns}}</td>
+				    <td valign="top">{{item.eta}}</td>
+				    <td valign="top">{{item.coverage}}</td>				    
+				    <td valign="top">{{item.classificationAccuracyPercentage}}</td>	    
+				    <td valign="top">
+				     <template is="dom-repeat" items="[[item.samples]]">
 				     	<p>{{item.label}}</p>
 				     </template>
 				    </td>
-				    <td>
-				     <template is="dom-repeat" items="[[item.synonyms]]">
-				     	<p>{{item.label}}</p>
-				     </template>
-				    </td>
-				    <td>
+				    <td valign="top">
 				     <template is="dom-repeat" items="[[item.patterns]]">
 				     	<p>{{item.label}}</p>
 				     </template>
 				    </td>
-				    <td>
-				     <template is="dom-repeat" items="[[item.relatedConcepts]]">
+				    <td valign="top">
+				     <template is="dom-repeat" items="[[item.synonyms]]">
 				     	<p>{{item.label}}</p>
 				     </template>
 				    </td>
-				    <td>
-				     <template is="dom-repeat" items="[[item.exampleValues]]">
-				     	<p>{{item.label}}</p>
-				     </template>
-				    </td>
-				    <td>
+				    <td valign="top">
 				     <template is="dom-repeat" items="[[item.exampleColumns]]">
+				     	<p>{{item.label}}</p>
+				     </template>
+				    </td>
+				    <td valign="top">
+				     <template is="dom-repeat" items="[[item.relatedConcepts]]">
 				     	<p>{{item.label}}</p>
 				     </template>
 				    </td>
