@@ -1,5 +1,4 @@
 {
-	"concept": {
 		"id": "100462",
 		"label": "SAMPLE FICO-Score",
 		"owner": {
@@ -100,5 +99,4 @@
 				"verified": "Y"
 			}
 		]
-	}
 }
