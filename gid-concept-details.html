@@ -9,9 +9,13 @@
 The `gid-concept-details` element is a data component acting as a wrapper  on gid-api used for handling rest calls for
 fetching the details of a particular concept for a particular user.
 
-<gid-concept-details user-id='1' api-url='https://ql50yzu0fj.execute-api.us-east-1.amazonaws.com/dev' concept-id='100392' conceptdetails='{{conceptdetails}}'></gid-concept-details>
-
-The fields 'userId' and 'conceptId' are  mandatory.
+ <gid-concept-details user='1' api-url='https://ql50yzu0fj.execute-api.us-east-1.amazonaws.com/dev'
+ concept='100392' synonyms = '[100052, 100053, 100054]'	patterns= '[100152, 100152, 100152]' 
+ related-concepts = '[100652]' example-values = '[200652]' example-columns = '[]'
+ entity = "CONCEPT-DETAILS" conceptdetails='{{conceptdetails}}'>
+ </gid-concept-details>
+ 
+The fields 'concept' and 'entity' are  mandatory.
 
 If 'apiUrl' is not provided, then the component would fetch sample data from mock json.
 
@@ -19,11 +23,15 @@ If 'apiUrl' is not provided, then the component would fetch sample data from moc
 -->
 <dom-module id="gid-concept-details">
   <template>
-         <!-- concepts -->	
-		<gid-api auto=false
-			http-method="get" api-url={{conceptDetailsUrl}} response='{{conceptDetailsResponse}}'
-			api-timeout={{conceptDetailsTimeout}} api-params={{conceptDetailsParams}}> </gid-api>			
-	    <!-- concepts -->
+          <!-- fetch entity path  -->
+        	<gid-api entity = '{{apiEntity}}' path='{{path}}'></gid-api>
+        <!--  fetch entity path -->
+        
+         <!-- fetch concept details -->	
+			<gid-api auto=false
+				http-method="get" api-url={{conceptDetailsUrl}} response='{{conceptDetailsResponse}}'
+				api-timeout={{conceptDetailsTimeout}} api-params={{conceptDetailsParams}}> </gid-api>			
+	    <!-- fetch concept details -->
 
   </template>
   <script>
@@ -60,36 +68,119 @@ If 'apiUrl' is not provided, then the component would fetch sample data from moc
      	          value: [],
      	          notify: true
      	        },
-     	       userId: {
+     	       user: {
      	        	type: String,
      	        	value : '',
      	        	notify :  true
      	        },
-     	       conceptId:{
+     	       concept:{
      	    	  type: String,
 	   	          value : '',
-	   	          notify :  true,
-	   	          observer : 'conceptIdModified'
-     	       }
-        },
-        conceptIdModified:  function(){
-        	if(!this.apiUrl){
-        		this.conceptDetailsUrl =   this.importPath + 'assets/' + 'conceptDetails.json';
-        		
-        	}
-        	else{
-        		this.conceptDetailsUrl =   this.apiUrl + '/concepts/' + this.conceptId + '/coverage';
-        	}
+	   	          notify :  true
+     	       },
+     	      synonyms: {
+	           	   type: Array,
+	           	   notify: true,
+	           	   value: []
+              },
+              patterns: {
+	           	   type: Array,
+	           	   notify: true,
+	           	   value: []
+              },
+              relatedConcepts: {
+	           	   type: Array,
+	           	   notify: true,
+	           	   value: []
+              },
+              exampleValues: {
+	           	   type: Array,
+	           	   notify: true,
+	           	   value: []
+              },
+              exampleColumns: {
+	           	   type: Array,
+	           	   notify: true,
+	           	   value: []
+              },
+     	       paramsArr: {
+	           	   type: Array,
+	           	   notify: true,
+	           	   value: ["synonyms", "patterns", "relatedConcepts", "exampleValues", "exampleColumns"]
+               },
+               paramsObj: {
+            	   type: Array,
+	           	   notify: true,
+	           	   value: {}
+               },
+     	       entity: {
+                   type: String,
+                   notify: true,
+                   value: '',
+                   observer: 'entityModified'
+               },
+               path: {
+               	   type: String,
+                   notify: true,
+                   value: '',
+                   observer: 'pathReceived'
+               },
+               apiEntity: {
+               	   type: String,
+                   notify: true
+               }
+               
         },
         conceptDetailsResponseChanged : function(newvalue, oldvalue){
-            this.conceptdetails = [];
-            if(newvalue != null){
-  	             this.async(function() {
-  	         		this.conceptdetails =  this.conceptdetails.concat(newvalue);
-  	   		 	          }, 500);
-            }
-           	
-           }
+          this.conceptdetails = [];
+	          if(newvalue != null){
+		             this.async(function() {
+		         		this.conceptdetails =  this.conceptdetails.concat(newvalue);
+		   		 	          }, 500);
+	          }
+         	
+         },
+         entityModified: function () {
+        	 if (this.entity) {
+        	 	if (!this.apiUrl) {
+	      			this.conceptDetailsUrl = this.importPath + 'assets/json/' + this.entity.toLowerCase() + '.json';
+	                this.conceptDetailsTimeout =  this.conceptDetailsTimeout - 1;
+      			}
+        		else {
+         			this.apiEntity = this.entity;
+         		}
+         	}
+				
+         },
+         pathReceived: function(){
+         	if(this.path){
+         		var res = this.path.split(/{([^}]+)}/);
+         		for (var i in res) {
+         			if(!res[i].startsWith("/")){
+         					if(this[res[i]]){
+         						res[i] = this[res[i]];
+         					}
+         			}
+         		}
+       			this.conceptDetailsUrl = this.apiUrl + res.join("");
+       			var paramVal = '';
+                for (var i in this.paramsArr){
+                	paramVal = '';
+                	if(this[this.paramsArr[i]].length){
+                		for (var j in this[this.paramsArr[i]]) {
+        		    		paramVal = paramVal + this[this.paramsArr[i]][j];
+        		    		if(j != (this[this.paramsArr[i]].length - 1)){
+        		    			paramVal = paramVal + ',';
+        		    		}
+                 		}
+                		this.paramsObj[this.paramsArr[i]]= paramVal;
+                	}
+                }
+       			this.conceptDetailsParams = JSON.stringify(this.paramsObj);
+       			this.conceptDetailsTimeout =  this.conceptDetailsTimeout - 1;
+         		
+         	}
+         }
       });
     })();
   </script>

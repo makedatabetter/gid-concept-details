@@ -29,7 +29,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <div class="horizontal-section-container">
     <template is="dom-bind" id="app">
-        <gid-concept-details user-id='1' api-url='https://ql50yzu0fj.execute-api.us-east-1.amazonaws.com/dev' concept-id='100392' conceptdetails='{{conceptdetails}}'></gid-concept-details>
+    
+        <gid-concept-details user='1' api-url='https://ql50yzu0fj.execute-api.us-east-1.amazonaws.com/dev'
+        concept='100392' synonyms = '[100052, 100053, 100054]'	patterns= '[100152, 100152, 100152]' 
+        related-concepts = '[100652]' example-values = '[200652]' example-columns = '[]'
+        entity = "CONCEPT-DETAILS" conceptdetails='{{conceptdetails}}'>
+        </gid-concept-details>
+        
         <template is="dom-repeat" items="[[conceptdetails]]">
             <div class="horizontal-section">
                 <table style="width:100%">
