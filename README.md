@@ -1,9 +1,140 @@
-# \<gid-concept-details\>
-This component is used for fetching the details of a particular concept for a particular user.
+## gid-concept-details
 
-In this component, usedID and conceptID are mandatory parameters. 
+A data component to get detailed information for a given concept and user id
 
-If 'apiUrl' is not provided, then the component would fetch sample data from mock json.
+    <gid-concept-details conceptId='1' userId='1'></<gid-concept-details>
+
+API endpoint:
+
+    GET /concepts/{id}
+    
+Input:
+- User Id
+- Concept Id
+- Selected Synonyms, Patterns, Related Concepts, Example Values for pivoting
+
+Sample Input: (Query params)
+
+    GET /concepts/{id}?synonyms=100052,100053,100054&patterns=100152,100152,100152&relatedConcepts=100652&exampleValues=200652
+
+Output:
+- Key Metadata
+- Concept Detail
+
+
+The output of this components will be as follows:
+
+    {
+      "concept": {
+        "id": "100462",
+        "label": "FICO-Score",
+        "owner": {
+          "id": "111001",
+          "label": "Angela"
+        },
+        "predictedColumns": 5,
+        "confirmedColumns": 3,
+        "eta": 0,
+        "coverage": 0.001,
+        "impactArea": [
+          {
+            "id": "120002",
+            "label": "Credit Risk"
+          },
+          {
+            "id": "120001",
+            "label": "GDPR"
+          }
+        ],
+        "classificationAccuracyPercentage": 5,
+        "applications": [
+          {
+            "id": "100492",
+            "label": "Universal Biller"
+          },
+          {
+            "id": "100252",
+            "label": "Supplier Management Program"
+          }
+        ],
+        "synonyms": [
+          {
+            "id": "100052",
+            "label": "DOB",
+            "relevance": 45,
+            "verified": "Y"
+          },
+          {
+            "id": "100053",
+            "label": "Birthday",
+            "relevance": 65,
+            "verified": "N"
+          }
+        ],
+        "patterns": [
+          {
+            "id": "100152",
+            "label": "DD/MM/YY",
+            "relevance": 37,
+            "verified": "F"
+          },
+          {
+            "id": "100153",
+            "label": "MM/YY/DD",
+            "relevance": 54,
+            "verified": "Y"
+          }
+        ],
+        "relatedConcepts": [
+          {
+            "id": "100652",
+            "label": "First Name",
+            "relevance": 44,
+            "verified": "Y"
+          },
+          {
+            "id": "100653",
+            "label": "Last Name",
+            "relevance": 32,
+            "verified": "Y"
+          }
+        ],
+        "exampleValues": [
+          {
+            "id": "200652",
+            "label": "21/03/2007",
+            "relevance": 90,
+            "verified": "Y"
+          },
+          {
+            "id": "200653",
+            "label": "08/07/2006",
+            "relevance": 80,
+            "verified": "Y"
+          }
+        ],
+        "exampleColumns": [
+          {
+            "id": "300652",
+            "label": "DOB",
+            "relevance": 90,
+            "verified": "Y"
+          },
+          {
+            "id": "300653",
+            "label": "BIRTH_DAY",
+            "relevance": 80,
+            "verified": "Y"
+          },
+          {
+            "id": "300654",
+            "label": "ORDER_DATE",
+            "relevance": 50,
+            "verified": "Y"
+          }
+        ]
+      }
+    }
 
 
 ## Install the Polymer-CLI
