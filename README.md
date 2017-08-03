@@ -2,9 +2,9 @@
 
 A data component to get detailed information for a given concept and user id
 
-    <gid-concept-details concept='1' user='1' entity = "CONCEPT-DETAILS" conceptdetails='{{conceptdetails}}'></<gid-concept-details>
+    <gid-concept-details concept='1' user='1' conceptdetails='{{conceptdetails}}'></<gid-concept-details>
     
-The fields 'concept' and 'entity' are  mandatory.
+The fields 'concept' and 'user' are  mandatory.
 
 If 'apiUrl' is not provided, then the component would fetch sample data from mock json.
 

@@ -12,10 +12,10 @@ fetching the details of a particular concept for a particular user.
  <gid-concept-details user='1' api-url='https://ql50yzu0fj.execute-api.us-east-1.amazonaws.com/dev'
  concept='100392' synonyms = '[100052, 100053, 100054]'	patterns= '[100152, 100152, 100152]' 
  related-concepts = '[100652]' example-values = '[200652]' example-columns = '[]'
- entity = "CONCEPT-DETAILS" conceptdetails='{{conceptdetails}}'>
+ conceptdetails='{{conceptdetails}}'>
  </gid-concept-details>
  
-The fields 'concept' and 'entity' are  mandatory.
+The fields 'concept' and 'user' are  mandatory.
 
 If 'apiUrl' is not provided, then the component would fetch sample data from mock json.
 
@@ -76,7 +76,8 @@ If 'apiUrl' is not provided, then the component would fetch sample data from moc
      	       concept:{
      	    	  type: String,
 	   	          value : '',
-	   	          notify :  true
+	   	          notify :  true,
+	   	          observer : 'conceptModified'
      	       },
      	      synonyms: {
 	           	   type: Array,
@@ -113,12 +114,6 @@ If 'apiUrl' is not provided, then the component would fetch sample data from moc
 	           	   notify: true,
 	           	   value: {}
                },
-     	       entity: {
-                   type: String,
-                   notify: true,
-                   value: '',
-                   observer: 'entityModified'
-               },
                path: {
                	   type: String,
                    notify: true,
@@ -140,14 +135,14 @@ If 'apiUrl' is not provided, then the component would fetch sample data from moc
 	          }
          	
          },
-         entityModified: function () {
-        	 if (this.entity) {
+         conceptModified: function () {
+        	 if (this.concept) {
         	 	if (!this.apiUrl) {
 	      			this.conceptDetailsUrl = this.importPath + 'assets/json/' + this.entity.toLowerCase() + '.json';
 	                this.conceptDetailsTimeout =  this.conceptDetailsTimeout - 1;
       			}
         		else {
-         			this.apiEntity = this.entity;
+         			this.apiEntity = 'CONCEPT-DETAILS';
          		}
          	}
 				
