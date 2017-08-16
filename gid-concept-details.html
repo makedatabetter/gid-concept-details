@@ -357,7 +357,8 @@ The output of this components will be as follows:
          <!-- fetch concept details -->	
 			<gid-api auto=false
 				method="GET" api-url={{conceptDetailsUrl}} response='{{conceptDetailsResponse}}'
-				api-timeout={{conceptDetailsTimeout}} api-params={{conceptDetailsParams}}> </gid-api>			
+				api-params={{conceptDetailsParams}} api-token={{conceptDetailsToken}}
+				api-timeout={{conceptDetailsTimeout}}> </gid-api>			
 	    <!-- fetch concept details -->
 
   </template>
@@ -367,6 +368,11 @@ The output of this components will be as follows:
       Polymer({
         is:'gid-concept-details',
         properties:{
+	        	apiToken: {
+	            	type: String,
+	                notify: true,
+	                value : ''
+	            },
 	        	apiUrl:{
 	            	type: String,
 	    	        notify: true,
@@ -390,23 +396,27 @@ The output of this components will be as follows:
 	     	   		type: String,
 	     	   		notify : true
      	   	    },
+     	   	    conceptDetailsToken : {
+     	   	    	type: String,
+     	   	    	notify: true
+     	   	    },
      	   	    conceptdetails: {
      	          type: Array,
      	          value: [],
      	          notify: true
      	        },
-     	       user: {
+     	       	user: {
      	        	type: String,
      	        	value : '',
      	        	notify :  true
      	        },
-     	       concept:{
+     	       	concept:{
      	    	  type: String,
 	   	          value : '',
 	   	          notify :  true,
 	   	          observer : 'conceptModified'
      	       },
-     	      synonyms: {
+     	       synonyms: {
 	           	   type: Array,
 	           	   notify: true,
 	           	   value: []
@@ -501,6 +511,9 @@ The output of this components will be as follows:
                 	}
                 }
        			this.conceptDetailsParams = JSON.stringify(this.paramsObj);
+       			if(this.apiToken){
+       				this.conceptDetailsToken =  this.apiToken;
+       			}
        			this.conceptDetailsTimeout =  this.conceptDetailsTimeout - 1;
          		
          	}
