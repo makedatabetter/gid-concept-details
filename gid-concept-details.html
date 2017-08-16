@@ -16,16 +16,16 @@ If 'apiUrl' is not provided, then the component would fetch sample data from moc
 
 API endpoint:
 
-    GET /concepts/{id}
+    GET /domains/{id}
     
 Input:
 - User Id
-- Concept Id
+- Domain Id
 - Selected Synonyms, Patterns, Related Concepts, Example Values for pivoting
 
 Sample Input: (Query params)
 
-    GET /concepts/{id}?synonyms=100052,100053,100054&patterns=100152,100152,100152&relatedConcepts=100652&exampleValues=200652
+    GET /domains/{id}?synonyms=100052,100053,100054&patterns=100152,100152,100152&relatedDomains=100652&exampleValues=200652
 
 Output:
 - Key Metadata
@@ -308,7 +308,7 @@ The output of this components will be as follows:
 				"verified": "N",
 				"relevance": 1.0
 			}],
-			"relatedConcepts": [{
+			"relatedDomains": [{
 				"id": "100376",
 				"label": "Email-Address",
 				"relevance": 18.0
@@ -416,7 +416,7 @@ The output of this components will be as follows:
 	           	   notify: true,
 	           	   value: []
               },
-              relatedConcepts: {
+              relatedDomains: {
 	           	   type: Array,
 	           	   notify: true,
 	           	   value: []
@@ -434,7 +434,7 @@ The output of this components will be as follows:
      	       paramsArr: {
 	           	   type: Array,
 	           	   notify: true,
-	           	   value: ["synonyms", "patterns", "relatedConcepts", "exampleValues", "exampleColumns"]
+	           	   value: ["synonyms", "patterns", "relatedDomains", "exampleValues", "exampleColumns"]
                },
                paramsObj: {
             	   type: Array,

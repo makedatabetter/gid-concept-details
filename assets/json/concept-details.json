@@ -1,10 +1,6 @@
 {
 		"id": "100462",
 		"label": "SAMPLE FICO-Score",
-		"owner": {
-			"id": "111001",
-			"label": "SAMPLE USER"
-		},
 		"predictedColumns": 5,
 		"confirmedColumns": 3,
 		"eta": 0,
@@ -54,7 +50,7 @@
 				"verified": "Y"
 			}
 		],
-		"relatedConcepts": [{
+		"relatedDomains": [{
 				"id": "100652",
 				"label": "SAMPLE First Name",
 				"relevance": 44,
