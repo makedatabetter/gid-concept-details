@@ -13,88 +13,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <title>gid concept details</title>
 
-    <link rel="import" href="../gid-concept-details.html">
-    <style>
-	  	table, th, td {
-	    border: 1px solid grey;
-	    border-collapse: collapse;
-		}
-		td {
-		    text-align: center;
-		}
-  	</style>
+    <link rel="import" href="concept-details.html">
 </head>
 <body unresolved>
-<h1>Concept Details</h1>
-
-<div class="horizontal-section-container">
-    <template is="dom-bind" id="app">
-    
-        <gid-concept-details user='1' api-url='https://ql50yzu0fj.execute-api.us-east-1.amazonaws.com/dev'
-        concept='100392' synonyms = '[100052, 100053, 100054]'	patterns= '[100152, 100152, 100152]' 
-        related-domains = '[100652]' example-values = '[200652]' api-token = 'VVNfMjItMzg0MjY1N18xMTA1MTY0MzI5NzY0MTUwMjQ1MTUxMTQ1MzI3MDFY'
-        conceptdetails='{{conceptdetails}}'>
-        </gid-concept-details>
-        
-        <template is="dom-repeat" items="[[conceptdetails]]">
-            <div class="horizontal-section">
-                <table style="width:100%">
-				  <tr>
-				    <th>Concept</th>
-				    <th>Predicted Columns</th>
-				    <th>Confirmed Columns</th>
-				    <th>ETA</th>
-				    <th>Coverage</th>
-				    <th>Classification Accuracy Percentage</th>
-				    <th>Samples</th>
-				    <th>Patterns</th>
-				    <th>Synonyms</th>
-				    <th>Example Columns</th>
-				    <th>Related Concepts</th>
-				  </tr>
-				  <tr>
-				    <td valign="top">{{item.label}}</td>
-				    <td valign="top">{{item.predictedColumns}}</td>
-				    <td valign="top">{{item.confirmedColumns}}</td>
-				    <td valign="top">{{item.eta}}</td>
-				    <td valign="top">{{item.coverage}}</td>				    
-				    <td valign="top">{{item.classificationAccuracyPercentage}}</td>	    
-				    <td valign="top">
-				     <template is="dom-repeat" items="[[item.samples]]">
-				     	<p>{{item.label}}</p>
-				     </template>
-				    </td>
-				    <td valign="top">
-				     <template is="dom-repeat" items="[[item.patterns]]">
-				     	<p>{{item.label}}</p>
-				     </template>
-				    </td>
-				    <td valign="top">
-				     <template is="dom-repeat" items="[[item.synonyms]]">
-				     	<p>{{item.label}}</p>
-				     </template>
-				    </td>
-				    <td valign="top">
-				     <template is="dom-repeat" items="[[item.exampleColumns]]">
-				     	<p>{{item.label}}</p>
-				     </template>
-				    </td>
-				    <td valign="top">
-				     <template is="dom-repeat" items="[[item.relatedDomains]]">
-				     	<p>{{item.label}}</p>
-				     </template>
-				    </td>
-				  </tr>
-				</table>
-            </div>
-        </template>
-    </template>
-</div>
-
+<concept-details></concept-details>
 <script>
-    var app = document.querySelector('#app');
-
-
 </script>
 </body>
 </html>
