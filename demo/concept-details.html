@@ -14,7 +14,7 @@
   		<h1>Concept Details</h1>
         <gid-concept-details user='1' api-url='https://srv-34-197-77-167.globalids.com:8443/api/v1'
         concept='-886082613329644447' synonyms = '["-2089114832254977960", "-3150438270889413497"]'	patterns= '["-7047601890608006487"]' 
-        related-domains = '[]' example-values = '[]' api-token = 'MTAxNjUwMzAxMTUwMzU1NjY3ODU3MDA5MDFY'
+        related-domains = '[]' example-values = '[]' api-token = 'MTAxNjUwMzAxMTUwNDYwMjEzMjIwOTA5MDFY'
         conceptdetails='{{conceptdetails}}'>
         </gid-concept-details>
         <template is="dom-if" if="[[isConceptDetailsReceived]]">
@@ -72,7 +72,7 @@
         </template>
     </template>
     <template is="dom-if" if="![[isConceptDetailsReceived]]">
-            <p>{{response.developerMessage}}</p>
+            <p>{{conceptdetails.0.userMessage}}</p>
     </template>
 
   </template>
@@ -94,8 +94,8 @@
      	        }
         },
         conceptDetailsObserver: function () {
-        	 if(this.conceptdetails){	
-				if(this.conceptdetails.errorCode){
+        	 if(this.conceptdetails.length > 0){	
+				if(this.conceptdetails[0]['errorCode']){
 					this.isConceptDetailsReceived = false;
 				}
 				else{
